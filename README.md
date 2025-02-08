@@ -1,1 +1,17 @@
-# jmc-aldi-1
+# jmc-aldi-task-1
+
+# Instalasi
+1. composer install
+2. cp .env.example .env
+3. php artisan key:generate
+4. pastikan telah mengonfigurasi database di file .env
+
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your_database
+DB_USERNAME=root
+DB_PASSWORD=
+```
+5. php artisan migrate
