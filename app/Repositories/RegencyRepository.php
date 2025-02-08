@@ -46,4 +46,19 @@ class RegencyRepository
         }
         return $query->get();
     }
+
+    public function getAllPopulationByProvince() 
+    {
+        return Regency::selectRaw('provinces.name as province_name, sum(regencies.total_population) as total_population')
+                      ->leftJoin('provinces', 'regencies.province_id', '=', 'provinces.id')
+                      ->groupBy('provinces.name')
+                      ->get();
+    }
+
+    public function getRegencyByProvince($id) 
+    {
+        $id = Crypt::decrypt($id);
+        return Regency::where('province_id', $id)->get();
+    }
+
 }

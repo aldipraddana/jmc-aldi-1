@@ -143,6 +143,44 @@
                 </div>
             </div>
         </div>
+        {{-- end list data regency area --}}
 
+        {{-- report area --}}
+        <div class="row mt-3">
+            <div class="col-12 px-0">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <b>Export Laporan Jumlah Penduduk</b>
+                    </div>
+                    <div class="card-body">
+                        <a href="{{ route('regency.export') }}" target="_blank" class="btn btn-success">Export Laporan Perprovinsi</a>
+
+                        {{-- area report per province --}}
+                        <div class="mt-3">
+                            <form action="{{ route('regency.export') }}" method="GET" target="_blank">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-4">
+                                        <label class="form-label">Filter Provinsi</label>
+                                        <select class="form-select" name="province" aria-label="Default select example">
+                                            @foreach ($dataProvince as $item)
+                                                <option value="{{ Crypt::encrypt($item->id) }}" {{ $provinceSelected === $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-3">
+                                        <button type="submit" class="btn btn-success" style="margin-top:32px">Export Laporan Per Kabupaten</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        {{-- end area filter data --}}
+
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- end report area --}}
     </div>
 @endsection

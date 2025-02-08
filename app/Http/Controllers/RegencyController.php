@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RegencyRequest;
 use App\Repositories\ProvinceRepository;
 use App\Repositories\RegencyRepository;
-use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Support\Facades\Crypt;
 
 class RegencyController extends Controller
@@ -53,5 +54,21 @@ class RegencyController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('regency')->with('error', 'Data gagal dihapus');
         }
+    }
+
+    public function export() {
+        $regencyData = $this->regencyRepository->getAllPopulationByProvince();
+        $view = 'pdf.export-province';
+        $request = request()->input();
+        if (!empty($request)) {
+            $province = $this->provinceRepository->getProvinceById($request['province']);
+            $regencyData = $this->regencyRepository->getRegencyByProvince($request['province']);
+            $view = 'pdf.export-regency';
+        }
+        $pdf = FacadePdf::loadView($view, [
+            'data' => $regencyData,
+            'province' => $province ?? null,
+        ]);
+        return $pdf->stream('laporan-jumlah-penduduk.pdf');
     }
 }

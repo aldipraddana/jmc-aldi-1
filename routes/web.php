@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [RegencyController::class, 'index'])->name('regency');
 Route::post('/regency', [RegencyController::class, 'store'])->name('regency.store');
 Route::delete('/regency/{id}', [RegencyController::class, 'destroy'])->name('regency.destroy');
+Route::get('/regency/export', [RegencyController::class, 'export'])->name('regency.export');
 
 Route::get('/province', [ProvinceController::class, 'index'])->name('province');
 Route::post('/province', [ProvinceController::class, 'store'])->name('province.store');
