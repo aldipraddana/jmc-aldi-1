@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('regencies', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('province_id')->constrained('provinces');
+            $table->string('name');
+            $table->integer('total_population')->nullable();
             $table->timestamps();
         });
     }
